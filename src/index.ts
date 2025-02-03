@@ -8,49 +8,45 @@ import {
   calculateDigitSum,
 } from "./utils/mathUtils";
 import dotenv from "dotenv";
+import { CONFIG } from "./config";
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || CONFIG.DEFAULT_PORT;
 
-// Middleware
-app.use(cors()); // Enable CORS
-app.use(express.json()); // Parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
-// Root route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, World! The server is running.");
+  res.send(CONFIG.ROOT_ROUTE_MESSAGE);
 });
 
-// API Endpoint
 app.get("/api/classify-number", async (req: Request, res: Response) => {
   try {
-    const number = parseInt(req.query.number as string);
+    const numberParam = req.query.number as string;
+    const number = parseInt(numberParam);
 
-    // Input validation
     if (isNaN(number)) {
-      return res.status(400).json({ number: req.query.number, error: true });
+      return res.status(400).json({
+        number: numberParam,
+        error: true,
+      });
     }
 
-    // Mathematical properties
     const isPrimeResult = isPrime(number);
     const isPerfectResult = isPerfect(number);
     const isArmstrongResult = isArmstrong(number);
     const isOdd = number % 2 !== 0;
     const digitSum = calculateDigitSum(number);
 
-    // Fetch fun fact
     const funFact = await fetchFunFact(number);
 
-    // Construct properties array
     const properties: string[] = [];
     if (isArmstrongResult) properties.push("armstrong");
     if (isOdd) properties.push("odd");
     else properties.push("even");
 
-    // Send response
     res.json({
       number,
       is_prime: isPrimeResult,
@@ -65,7 +61,6 @@ app.get("/api/classify-number", async (req: Request, res: Response) => {
   }
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

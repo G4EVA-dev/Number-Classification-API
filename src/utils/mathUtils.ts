@@ -1,17 +1,17 @@
-// Check if a number is prime
+import { CONFIG } from "../config";
+
 export function isPrime(n: number): boolean {
-  if (n <= 1) return false;
-  for (let i = 2; i <= Math.sqrt(n); i++) {
+  if (n <= CONFIG.MIN_NUMBER || n > Number.MAX_SAFE_INTEGER) return false;
+  for (let i = CONFIG.MIN_DIVISOR; i <= Math.sqrt(n); i++) {
     if (n % i === 0) return false;
   }
   return true;
 }
 
-// Check if a number is perfect
 export function isPerfect(n: number): boolean {
-  if (n <= 1) return false;
-  let sum = 1;
-  for (let i = 2; i <= Math.sqrt(n); i++) {
+  if (n <= CONFIG.MIN_NUMBER) return false;
+  let sum = CONFIG.MIN_NUMBER;
+  for (let i = CONFIG.MIN_DIVISOR; i <= Math.sqrt(n); i++) {
     if (n % i === 0) {
       sum += i;
       if (i !== n / i) sum += n / i;
@@ -20,7 +20,6 @@ export function isPerfect(n: number): boolean {
   return sum === n;
 }
 
-// Check if a number is an Armstrong number
 export function isArmstrong(n: number): boolean {
   const digits = String(n).split("");
   const length = digits.length;
@@ -31,7 +30,6 @@ export function isArmstrong(n: number): boolean {
   return sum === n;
 }
 
-// Calculate the sum of digits
 export function calculateDigitSum(n: number): number {
   return String(n)
     .split("")

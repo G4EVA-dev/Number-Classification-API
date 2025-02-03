@@ -1,10 +1,12 @@
 import axios from "axios";
+import { CONFIG } from "../config";
 
-// Fetch fun fact from Numbers API
 export async function fetchFunFact(n: number): Promise<string> {
   try {
-    const response = await axios.get(`http://numbersapi.com/${n}/math`);
-    return response.data as string; // Ensure response data is treated as a string
+    const response = await axios.get(
+      `${CONFIG.NUMBERS_API_BASE_URL}/${n}${CONFIG.MATH_ENDPOINT}`
+    );
+    return response.data as string;
   } catch (error: unknown) {
     if ((error as any)?.isAxiosError) {
       console.error("Axios error fetching fun fact:", (error as any).message);
