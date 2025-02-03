@@ -27,8 +27,9 @@ Before getting started, ensure that you have the following software installed on
 Start by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/number-classification-api.git
+git clone https://github.com/G4EVA-dev/Number-Classification-API
 cd number-classification-api
+```
 
 
 ### Install dependencies
@@ -157,7 +158,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For more information, feel free to open an issue or contact the project maintainers. Contributions, issues, and suggestions are always welcome!
 
-For the latest updates and features, check out the [GitHub repository](https://github.com/your-username/number-classification-api).
+For the latest updates and features, check out the [GitHub repository](https://github.com/G4EVA-dev/Number-Classification-API).
 ```
 
 ### Key Sections in the README:
