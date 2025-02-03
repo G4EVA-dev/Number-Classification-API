@@ -165,6 +165,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **The Numbers API**: Used to fetch fun facts about numbers.
 - **Express**: For making web application development simple and fast.
 - **TypeScript**: To help ensure the quality and maintainability of the project codebase.
+- [Fun Fact API](http://numbersapi.com/#42)   
+- [Wikipedia Math Parity](https://en.wikipedia.org/wiki/Parity_(mathematics))   
 
 ---
 
