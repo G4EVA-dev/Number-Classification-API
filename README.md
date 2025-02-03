@@ -173,18 +173,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For more information, feel free to open an issue or contact the project maintainers. Contributions, issues, and suggestions are always welcome!
 
 For the latest updates and features, check out the [GitHub repository](https://github.com/G4EVA-dev/Number-Classification-API).
-```
-
-### Key Sections in the README:
-
-- **Project Title and Overview**: A brief description of the project's purpose.
-- **Features**: A list of the key functionalities of the API.
-- **Installation Instructions**: Steps for setting up and running the project locally.
-- **API Endpoints**: Detailed description of the available endpoint, query parameters, and response formats.
-- **Testing**: Instructions on running tests to ensure the functionality works as expected.
-- **Technologies Used**: The tech stack employed in the project.
-- **Contribution Guidelines**: Instructions for contributing to the project, including creating issues or submitting pull requests.
-- **License Information**: The licensing information for the project.
-- **Acknowledgments**: Recognition for libraries or tools that made the project possible.
-
-
