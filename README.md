@@ -1,5 +1,17 @@
 # Number Classification API
 
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Installation Instructions](#installation)
+4. [API Endpoints](#api-endpoints)
+5. [Testing Instructions](#testing-instructions)
+6. [Technologies Used](#technologies-used)
+7. [Contribution Guidelines](#contribution-guidelines)
+8. [Acknowledgments](#acknowledgments)
+
+## Project Overview
+
 The **Number Classification API** provides a set of endpoints to classify numbers based on several mathematical properties, such as prime, perfect, Armstrong, odd, and even. In addition, the API fetches a fun fact related to the number from the Numbers API.
 
 ## Features
@@ -111,7 +123,7 @@ This endpoint takes a number and classifies it based on various properties. It a
   }
   ```
 
-## Testing
+## Testing Instructions
 
 To ensure the quality and reliability of the API, you can run the tests provided in this project.
 
