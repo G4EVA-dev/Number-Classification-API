@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchFunFact = fetchFunFact;
 const axios_1 = __importDefault(require("axios"));
-// Fetch fun fact from Numbers API
+const config_1 = require("../config");
 function fetchFunFact(n) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield axios_1.default.get(`http://numbersapi.com/${n}/math`);
-            return response.data; // Ensure response data is treated as a string
+            const response = yield axios_1.default.get(`${config_1.CONFIG.NUMBERS_API_BASE_URL}/${n}${config_1.CONFIG.MATH_ENDPOINT}`);
+            return response.data;
         }
         catch (error) {
             if (error === null || error === void 0 ? void 0 : error.isAxiosError) {

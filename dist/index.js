@@ -16,32 +16,38 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const apiUtils_1 = require("./utils/apiUtils");
 const mathUtils_1 = require("./utils/mathUtils");
+const dotenv_1 = __importDefault(require("dotenv"));
+const config_1 = require("./config");
+dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3000;
-// Middleware
-app.use((0, cors_1.default)()); // Enable CORS
-app.use(express_1.default.json()); // Parse JSON bodies
-// Root route
-app.get("/", (req, res) => {
-    res.send("Hello, World! The server is running.");
-});
-// API Endpoint
+const PORT = process.env.PORT || config_1.CONFIG.DEFAULT_PORT;
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.get("/api/classify-number", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const number = parseInt(req.query.number);
-        // Input validation
-        if (isNaN(number)) {
-            return res.status(400).json({ number: req.query.number, error: true });
+        const numberParam = req.query.number;
+        // Validate if the parameter exists
+        if (!numberParam) {
+            return res.status(400).json({
+                error: true,
+                message: "Missing 'number' query parameter.",
+            });
         }
-        // Mathematical properties
+        const number = Number(numberParam);
+        // Ensure it's a valid integer
+        if (!Number.isInteger(number)) {
+            return res.status(400).json({
+                error: true,
+                message: `'${numberParam}' is not a valid integer.`,
+            });
+        }
+        // Compute properties
         const isPrimeResult = (0, mathUtils_1.isPrime)(number);
         const isPerfectResult = (0, mathUtils_1.isPerfect)(number);
         const isArmstrongResult = (0, mathUtils_1.isArmstrong)(number);
         const isOdd = number % 2 !== 0;
         const digitSum = (0, mathUtils_1.calculateDigitSum)(number);
-        // Fetch fun fact
         const funFact = yield (0, apiUtils_1.fetchFunFact)(number);
-        // Construct properties array
         const properties = [];
         if (isArmstrongResult)
             properties.push("armstrong");
@@ -49,11 +55,11 @@ app.get("/api/classify-number", (req, res) => __awaiter(void 0, void 0, void 0, 
             properties.push("odd");
         else
             properties.push("even");
-        // Send response (ensures a return)
-        return res.json({
+        res.status(200).json({
             number,
             is_prime: isPrimeResult,
             is_perfect: isPerfectResult,
+            is_armstrong: isArmstrongResult,
             properties,
             digit_sum: digitSum,
             fun_fact: funFact,
@@ -61,10 +67,9 @@ app.get("/api/classify-number", (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     catch (error) {
         console.error("Error in /api/classify-number:", error);
-        return res.status(500).json({ error: "Internal Server Error" }); // Ensure return
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }));
-// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
