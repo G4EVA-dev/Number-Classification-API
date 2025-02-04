@@ -21,22 +21,31 @@ app.use(express.json());
 app.get("/api/classify-number", async (req: Request, res: Response) => {
   try {
     const numberParam = req.query.number as string;
-    const number = parseInt(numberParam);
 
-    // Validate integer input
-    if (isNaN(number) || !Number.isInteger(number)) {
+    // Validate if the parameter exists
+    if (!numberParam) {
       return res.status(400).json({
-        number: numberParam,
         error: true,
+        message: "Missing 'number' query parameter.",
       });
     }
 
+    const number = Number(numberParam);
+
+    // Ensure it's a valid integer
+    if (!Number.isInteger(number)) {
+      return res.status(400).json({
+        error: true,
+        message: `'${numberParam}' is not a valid integer.`,
+      });
+    }
+
+    // Compute properties
     const isPrimeResult = isPrime(number);
     const isPerfectResult = isPerfect(number);
     const isArmstrongResult = isArmstrong(number);
     const isOdd = number % 2 !== 0;
     const digitSum = calculateDigitSum(number);
-
     const funFact = await fetchFunFact(number);
 
     const properties: string[] = [];
@@ -44,10 +53,11 @@ app.get("/api/classify-number", async (req: Request, res: Response) => {
     if (isOdd) properties.push("odd");
     else properties.push("even");
 
-    res.json({
+    res.status(200).json({
       number,
       is_prime: isPrimeResult,
       is_perfect: isPerfectResult,
+      is_armstrong: isArmstrongResult,
       properties,
       digit_sum: digitSum,
       fun_fact: funFact,
