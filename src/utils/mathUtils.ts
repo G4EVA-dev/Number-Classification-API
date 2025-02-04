@@ -1,12 +1,3 @@
-// export function isPrime(n: number): boolean {
-//   const absN = Math.abs(n);
-//   if (absN <= 1) return false;
-//   for (let i = 2; i <= Math.sqrt(absN); i++) {
-//     if (absN % i === 0) return false;
-//   }
-//   return true;
-// }
-
 export function isPrime(n: number): boolean {
   if (n <= 1) return false; // Ensure only numbers greater than 1 are considered
 
@@ -18,19 +9,6 @@ export function isPrime(n: number): boolean {
 
   return true;
 }
-
-// export function isPerfect(n: number): boolean {
-//   const absN = Math.abs(n);
-//   if (absN <= 1) return false;
-//   let sum = 1;
-//   for (let i = 2; i <= Math.sqrt(absN); i++) {
-//     if (absN % i === 0) {
-//       sum += i;
-//       if (i !== absN / i) sum += absN / i;
-//     }
-//   }
-//   return sum === absN;
-// }
 
 export function isPerfect(n: number): boolean {
   if (n <= 0) return false; // Ensure only positive numbers are checked
