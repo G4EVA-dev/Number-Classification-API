@@ -18,16 +18,13 @@ const PORT = process.env.PORT || CONFIG.DEFAULT_PORT;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send(CONFIG.ROOT_ROUTE_MESSAGE);
-});
-
 app.get("/api/classify-number", async (req: Request, res: Response) => {
   try {
     const numberParam = req.query.number as string;
     const number = parseInt(numberParam);
 
-    if (isNaN(number)) {
+    // Validate integer input
+    if (isNaN(number) || !Number.isInteger(number)) {
       return res.status(400).json({
         number: numberParam,
         error: true,
@@ -62,5 +59,5 @@ app.get("/api/classify-number", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
