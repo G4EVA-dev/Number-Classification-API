@@ -26,22 +26,21 @@ app.use(express_1.default.json());
 app.get("/api/classify-number", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const numberParam = req.query.number;
-        // Validate if the parameter exists
         if (!numberParam) {
-            return res.status(400).json({
+            res.status(400).json({
+                number: numberParam,
                 error: true,
-                message: "Missing 'number' query parameter.",
             });
+            return;
         }
         const number = Number(numberParam);
-        // Ensure it's a valid integer
         if (!Number.isInteger(number)) {
-            return res.status(400).json({
+            res.status(400).json({
+                number: numberParam,
                 error: true,
-                message: `'${numberParam}' is not a valid integer.`,
             });
+            return;
         }
-        // Compute properties
         const isPrimeResult = (0, mathUtils_1.isPrime)(number);
         const isPerfectResult = (0, mathUtils_1.isPerfect)(number);
         const isArmstrongResult = (0, mathUtils_1.isArmstrong)(number);
@@ -55,11 +54,10 @@ app.get("/api/classify-number", (req, res) => __awaiter(void 0, void 0, void 0, 
             properties.push("odd");
         else
             properties.push("even");
-        res.status(200).json({
+        res.json({
             number,
             is_prime: isPrimeResult,
             is_perfect: isPerfectResult,
-            is_armstrong: isArmstrongResult,
             properties,
             digit_sum: digitSum,
             fun_fact: funFact,
